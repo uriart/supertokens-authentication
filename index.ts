@@ -6,7 +6,6 @@ import { middleware, errorHandler, SessionRequest } from "supertokens-node/frame
 import { getWebsiteDomain, SuperTokensConfig } from "./config";
 import Multitenancy from "supertokens-node/recipe/multitenancy";
 
-
 supertokens.init(SuperTokensConfig);
 
 const app = express();
