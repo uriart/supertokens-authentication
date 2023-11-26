@@ -5,7 +5,6 @@ import { verifySession } from "supertokens-node/recipe/session/framework/express
 import { middleware, errorHandler, SessionRequest } from "supertokens-node/framework/express";
 import { getWebsiteDomain, SuperTokensConfig } from "./config";
 import Multitenancy from "supertokens-node/recipe/multitenancy";
-import { superTokensNextWrapper } from 'supertokens-node/nextjs'
 
 
 supertokens.init(SuperTokensConfig);
