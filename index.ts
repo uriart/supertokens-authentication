@@ -20,7 +20,7 @@ app.use(
 );
 
 // This exposes all the APIs from SuperTokens to the client.
-app.use(middleware());
+app.use("/supertokens-backend",  middleware());
 
 // An example API that requires session verification
 app.get("/sessioninfo", verifySession(), async (req: SessionRequest, res) => {
