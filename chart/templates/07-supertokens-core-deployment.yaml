@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: supertokens-core
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: supertokens-core
+  template:
+    metadata:
+      labels:
+        app: supertokens-core
+    spec:
+      containers:
+      - name: supertokens-core
+        image: registry.supertokens.io/supertokens/supertokens-postgresql:7.0
+        ports:
+        - containerPort: 3567
+        env:
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-supertokens-secret
+              key: postgres-password
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-supertokens-secret
+              key: postgres-user
+        - name: POSTGRESQL_HOST
+          value: postgres-supertokens-service
+        - name: POSTGRESQL_PORT
+          value: '5432'
+

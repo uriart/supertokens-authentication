@@ -1,0 +1,4 @@
+apiVersion: v1
+description: authentication-server Helm chart
+name: authentication-server
+version: 1.0.0

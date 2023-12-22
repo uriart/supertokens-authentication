@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-supertokens
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-supertokens
+  template:
+    metadata:
+      labels:
+        app: postgres-supertokens
+    spec:
+      containers:
+      - name: postgres-supertokens
+        image: postgres:alpine3.19
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-supertokens-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-supertokens-secret
+              key: postgres-password
+        - name: POSTGRES_DB
+          value: {{ .Values.database_name }}
+        volumeMounts:
+          - name: postgres-storage
+            mountPath: /var/lib/postgresql/data
+            subPath: supertokens-postgres
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc_name }}
